@@ -1,0 +1,107 @@
+#include <stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+#include <string.h>
+
+struct node
+{
+  char info[100];
+  struct node *next;
+} *first = NULL, *temp = NULL, *last = NULL;
+
+void
+create ()
+{
+  temp = (struct node *) malloc (sizeof (struct node));
+  scanf ("%s", temp->info);
+  temp->next = NULL;
+}
+
+void
+insertend ()
+{
+  if (first == NULL)
+    {
+      create ();
+      last = first = temp;
+    }
+  else
+    {
+      create ();
+      last->next = temp;
+      last = temp;
+    }
+}
+
+void
+display ()
+{
+  struct node *trav;
+  trav = first;
+  if (trav == NULL)
+    {
+      printf ("List is Empty");
+    }
+  while (trav != NULL)
+    {
+      printf ("%s ", trav->info);
+      trav = trav->next;
+    }
+  printf ("\n");
+}
+
+void
+finding_ans ()
+{
+  char ch1[100];
+  int num;			//stores the length of words
+  struct node *trav;
+  trav = first;
+  char *ch;			//stores the max length odd word
+  int max = 0;			//stores the maximum length among different odd length of words
+  while (trav != NULL)
+
+    {
+      num = strlen (trav->info);	//getting word length 
+      if ((num % 2 != 0))	//checking for odd length words
+	{
+	  if (num > max)
+	    {
+	      max = num;	//stores the max length from different odd length words
+	      ch = trav->info;	//stores the max length odd word
+	    }
+
+	}
+
+      trav = trav->next;
+    }
+
+  printf ("Enter user guess word\n");
+  scanf ("%s", ch1);
+  if (strcmp (ch, ch1) == 0)
+    printf ("------>Win!!<------");
+  else
+    printf ("------>Better luck next time<------");
+}
+
+int
+main ()
+{
+  int n, i;
+  printf ("Enter the number of string you want to enter\n");
+  scanf ("%d", &n);
+  printf ("Enter the string\n");
+  for (i = 0; i < n; i++)
+    {
+      insertend ();
+    }
+    
+printf("\nGuess between the words:\n");
+display();
+printf("\n");
+  finding_ans ();
+
+  return 0;
+}
+
+
